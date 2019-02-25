@@ -9,7 +9,7 @@ exports.runTests = (arr, callback, repeats=1) => {
     var t0 = performance.now();
     callback(elem);
     var t1 = performance.now();
-    return(result.push({label: elem.length, data: (t1 - t0)}))
+    return(result.push({x: elem.length, y: (t1 - t0)}))
   };
 
   const run = (arr, callback) => {
@@ -21,7 +21,7 @@ exports.runTests = (arr, callback, repeats=1) => {
     run(arr, callback)
   }
   return result;
-}
+};
 
 
 exports.createArrays = (startSize, endSize, stepSize=5000) => {
@@ -37,9 +37,23 @@ exports.createArrays = (startSize, endSize, stepSize=5000) => {
     superArrs.push(makeArray(i))
   }
   return superArrs
-}
+};
 
+exports.getLabels = (result) => {
+  labels = []
+  result.forEach((elem) => {
+    labels.push(elem.label)
+  });
+  return labels
+};
 
+exports.getData = (result) => {
+  data = []
+  result.forEach((elem) => {
+    data.push(elem.data)
+  });
+  return data
+};
 //
 // exports.showSpeed = () => {
 //   result = [];

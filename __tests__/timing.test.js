@@ -1,5 +1,9 @@
-const timing = require('../src/timing')
-let arr = timing.createArrays(5000, 10000)
+const timing = require('../src/timing');
+let arr = timing.createArrays(5000, 10000);
+const shuffle = jest.fn();
+const reverse = (arr) => {
+  arr.reverse()
+};
 describe("creating arrays", () => {
   test("can array wich starts with specificed array size", () => {
     expect(arr[0].length).toBe(5000)
@@ -22,32 +26,22 @@ describe("creating arrays", () => {
   });
 });
 
-  describe("running tests", () =>{
-    const shuffle = jest.fn();
-    test("function to test called on each array specified number of repeats", () =>{
-      timing.runTests(arr, shuffle, 10);
-      expect(shuffle).toHaveBeenCalledTimes(arr.length * 10)
-    });
-    test("return an array of objects with label and data params", () =>{
-      reverse = (arr) => {
-        arr.reverse()
-      };
-      result = timing.runTests(arr, reverse);
-      console.log(result);
-      expect(result.length).toBe(2)
-    });
-    test("it creates array with objects containing labels", () => {
-      reverse = (arr) => {
-        arr.reverse()
-      };
-      result = timing.runTests(arr, reverse);
-      expect(result[0].label).toBe(5000)
-    });
-    test("it creates array with objects containing data params", () => {
-      reverse = (arr) => {
-        arr.reverse()
-      };
-      result = timing.runTests(arr, reverse);
-      expect(result[0].data).not.toBe(null)
-    });
+describe("running tests", () =>{
+  test("function to test called on each array specified number of repeats", () =>{
+    timing.runTests(arr, shuffle, 10);
+    expect(shuffle).toHaveBeenCalledTimes(arr.length * 10)
   });
+  test("return an array of objects with label and data params", () =>{
+    result = timing.runTests(arr, reverse);
+    console.log(result);
+    expect(result.length).toBe(2)
+  });
+  test("it creates array with objects containing labels", () => {
+    result = timing.runTests(arr, reverse);
+    expect(result[0].x).toBe(5000)
+  });
+  test("it creates array with objects containing data params", () => {
+    result = timing.runTests(arr, reverse);
+    expect(result[0].y).not.toBe(null)
+  });
+});
