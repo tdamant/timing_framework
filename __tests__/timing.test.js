@@ -29,12 +29,28 @@ describe("creating arrays", () => {
   });
 });
 
-describe("measure", () =>{
-  test("accepts a callback and measures time to peform callback", () => {
-    arr = timing.createArrays(5000, 100000);
-    timing = timing.measure((arr) => {
-      arr.reverse()
+  describe("running tests", () =>{
+    test("function to test called on each array", () =>{
+      const shuffle = jest.fn();
+      arr = timing.createArrays(5000, 10000)
+      timing.runTests(arr, shuffle)
+      expect(shuffle).toHaveBeenCalledTimes(arr.length)
     });
-    expect(timing instanceof number).toBe(True)
-  })
-})
+    test("return an array of objects with label and data params", () =>{
+      arr = timing.createArrays(5000, 10000)
+      reverse = (arr) => {
+        arr.reverse()
+      };
+      result = timing.runTests(arr, reverse);
+      expect(result instanceof Array).toBe(true);
+    });
+    test("it creates array with objects containing labels", () => {
+      arr = timing.createArrays(5000, 10000)
+      reverse = (arr) => {
+        arr.reverse()
+      };
+      result = timing.runTests(arr, reverse);
+      console.log(result)
+      expect(result[0].label).toBe(5000)
+    });
+  });
