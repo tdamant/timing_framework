@@ -2,20 +2,24 @@
 // use those arrays and measure (specified number of times);
 // return object with array of the data objects
 
-exports.runTests = (arr, callback) => {
-
+exports.runTests = (arr, callback, repeats=1) => {
+  result = [];
 
   const measure = (elem, callback) => {
     var t0 = performance.now();
     callback(elem);
     var t1 = performance.now();
-    return({label: elem.length, data: (t1 - t0)})
+    return(result.push({label: elem.length, data: (t1 - t0)}))
   };
 
-  result = []
-  arr.forEach(function(elem){
-    result.push(measure(elem, callback))
-  })
+  const run = (arr, callback) => {
+    arr.forEach((elem) => {
+      measure(elem, callback)
+    });
+  };
+  for(let i = 0; i < repeats; i++) {
+    run(arr, callback)
+  }
   return result;
 }
 

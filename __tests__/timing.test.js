@@ -23,11 +23,10 @@ describe("creating arrays", () => {
 });
 
   describe("running tests", () =>{
-
-    test("function to test called on each array", () =>{
-      const shuffle = jest.fn();
-      timing.runTests(arr, shuffle)
-      expect(shuffle).toHaveBeenCalledTimes(arr.length)
+    const shuffle = jest.fn();
+    test("function to test called on each array specified number of repeats", () =>{
+      timing.runTests(arr, shuffle, 10);
+      expect(shuffle).toHaveBeenCalledTimes(arr.length * 10)
     });
     test("return an array of objects with label and data params", () =>{
       reverse = (arr) => {
