@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
   var sortResult = timing.runTests(functions.sort);
   var reverseResult = timing.runTests(functions.reverse);
-  var lastResult = timing.runTests(functions.last);
+  var duplicateResult = timing.runTests(functions.findDuplicates);
   var shuffleResult = timing.runTests(functions.shuffle);
   var ctx = document.getElementById("scatterChart");
   var scatterChart = new Chart(ctx, {
@@ -17,9 +17,10 @@ document.addEventListener("DOMContentLoaded", function() {
           data: reverseResult
         },
         {
-          label: "last",
-          data: lastResult
-        },
+          label: "duplicates",
+          data: duplicateResult
+        }
+        ,
         {
           label: "shuffle",
           data: shuffleResult
