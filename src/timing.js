@@ -4,19 +4,26 @@
 
 exports.runTests = (arr, callback, repeats=1) => {
   result = [];
+  console.log("hey find me");
 
   const measure = (elem, callback) => {
+      for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [elem[i], elem[j]] = [elem[j], elem[i]];
+      }
     var t0 = performance.now();
     callback(elem);
     var t1 = performance.now();
-    return(result.push({x: elem.length, y: (t1 - t0)}))
+    console.log("finished"+elem.length);
+    return({x: elem.length, y: ((t1 - t0))})
   };
 
   const run = (arr, callback) => {
     arr.forEach((elem) => {
-      measure(elem, callback)
+      result.push(measure(elem, callback))
     });
   };
+
   for(let i = 0; i < repeats; i++) {
     run(arr, callback)
   }
@@ -26,40 +33,12 @@ exports.runTests = (arr, callback, repeats=1) => {
 
 exports.createArrays = (startSize, endSize, stepSize=5000) => {
   function makeArray(number) {
-    arr = []
-    for (let i = 0; i < number; i++) {
-      arr.push(i)
-    }
-    return arr
+    return Array.from({length: number}, () =>
+    Math.floor(Math.random() * number));
   };
-  superArrs = [];
+  finalArray = [];
   for (let i = startSize; i <= endSize ; i += stepSize) {
-    superArrs.push(makeArray(i))
+    finalArray.push(makeArray(i))
   }
-  return superArrs
+  return finalArray
 };
-
-exports.getLabels = (result) => {
-  labels = []
-  result.forEach((elem) => {
-    labels.push(elem.label)
-  });
-  return labels
-};
-
-exports.getData = (result) => {
-  data = []
-  result.forEach((elem) => {
-    data.push(elem.data)
-  });
-  return data
-};
-//
-// exports.showSpeed = () => {
-//   result = [];
-//   arrays = createArrays(5000, 1000000)
-//   arrays.forEach(function(element){
-//     result.push(measure(element))
-//   })
-//   return result
-// };

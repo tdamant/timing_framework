@@ -1,5 +1,5 @@
 const timing = require('../src/timing');
-let arr = timing.createArrays(5000, 10000);
+let arr = timing.createArrays(5000, 15000);
 const shuffle = jest.fn();
 const reverse = (arr) => {
   arr.reverse()
@@ -18,12 +18,15 @@ describe("creating arrays", () => {
     expect(firstArr[firstArr.length - 1]).toBe(4999)
   });
   test("can create array with specified end size", () => {
-    expect(arr[arr.length - 1].length).toBe(10000)
+    expect(arr[arr.length - 1].length).toBe(15000)
   });
   test("create array with specified step size", () => {
     arr1 = timing.createArrays(500, 10000, 10)
     expect(arr1[1].length - arr1[0].length).toBe(10)
   });
+  test("arrays are sequential", () => {
+    expect(arr[1][2] - arr[1][1]).toBe(1)
+  })
 });
 
 describe("running tests", () =>{
@@ -33,8 +36,7 @@ describe("running tests", () =>{
   });
   test("return an array of objects with label and data params", () =>{
     result = timing.runTests(arr, reverse);
-    console.log(result);
-    expect(result.length).toBe(2)
+    expect(result.length).toBe(3)
   });
   test("it creates array with objects containing labels", () => {
     result = timing.runTests(arr, reverse);
