@@ -9,7 +9,7 @@ describe("findDuplicates", () => {
     array = ['hey', 'hello', 'hey']
     expect(functions.findDuplicates(array)).toEqual(['hey', 'hey'])
   });
-  test("it returns empty array if no duplicates", () => {
+  test("it returns empty arrayif no duplicates", () => {
     array = ['hey', 'hello', 'hi']
     expect(functions.findDuplicates(array)).toEqual([])
   });
@@ -28,7 +28,7 @@ describe("findDuplicatesV2", () => {
     array = ['hey', 'hello', 'hey']
     expect(functions.findDuplicatesV2(array)).toEqual(['hey', 'hey'])
   });
-  test("it returns empty array if no duplicates", () => {
+  test("it returns empty arrayif no duplicates", () => {
     array = ['hey', 'hello', 'hi']
     expect(functions.findDuplicatesV2(array)).toEqual([])
   });
@@ -47,7 +47,7 @@ describe("findDuplicatesV2", () => {
     array = ['hey', 'hello', 'hey']
     expect(functions.findDuplicatesV3(array)).toEqual(['hey', 'hey'])
   });
-  test("it returns empty array if no duplicates", () => {
+  test("it returns empty arrayif no duplicates", () => {
     array = ['hey', 'hello', 'hi']
     expect(functions.findDuplicatesV3(array)).toEqual([])
   });
@@ -77,12 +77,12 @@ describe("quickSort", () => {
     let array = [3, 6, 1, 7,4, 5]
     expect(functions.quickSort(array)).toEqual([1, 3, 4, 5, 6, 7])
   });
-  test("it sorts array with duplicates", () => {
+  test("it sorts arraywith duplicates", () => {
     let array = [3, 6, 1, 7,4, 5, 4];
     let result = functions.quickSort(array);
     expect(result).toEqual([1, 3, 4,4, 5, 6, 7])
   });
-  test("it sorts array with multiple duplicates", () => {
+  test("it sorts arraywith multiple duplicates", () => {
     let array = [3, 6, 3, 3,4, 5, 4];
     let result = functions.quickSort(array);
     expect(result).toEqual([3, 3, 3,4, 4, 5, 6]);
@@ -96,12 +96,13 @@ describe("quickSort", () => {
           return Array.from({length: number}, () =>
               Math.floor(Math.random() * number));
       };
-      let array = makeArray(1000);
+      let array = makeArray(100000);
       let shuffledArray = functions.shuffle(array);
       let testArray = shuffledArray.slice(0);
       let secondTest = shuffledArray.slice(0);
       let result = functions.quickSort(testArray);
       expect(result).toEqual(secondTest.sort(function(a, b){return a - b}));
-
   })
 });
+
+

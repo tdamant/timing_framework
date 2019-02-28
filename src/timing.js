@@ -1,4 +1,4 @@
-exports.runTests = (callback, startSize = 100000, endSize = 5000000, stepSize=100000, repeats=3) => {
+exports.runTests = (callback, startSize = 1000, endSize = 2000, stepSize=1000, repeats=3) => {
   let result = [];
   const measure = (arr, callback) => {
     let t0 = performance.now();
@@ -8,8 +8,8 @@ exports.runTests = (callback, startSize = 100000, endSize = 5000000, stepSize=10
     result.push({x: arr.length, y: ((t1 - t0))})
   };
   const makeArray = (number) => {
-    return Array.from({length: number}, () =>
-      Math.floor(Math.random() * number));
+    return  Array.from({length: number}, () =>
+      Math.floor(Math.random() * number))
   };
 
   for(let i = startSize; i < endSize; i += stepSize) {

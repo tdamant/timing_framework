@@ -81,61 +81,43 @@ exports.newSort = (array) => {
 	return array
 };
 
-// if LI < RI - switch li and ri
-// if RI < LI - switch pivot with LI and then run with new arrays;
-// if RI === null switch pivot with LI
-// if LI === null switch nothing, and run with new array
-// if LI === null && RI === null return array
-
-exports.quickSort = (originalArr) => {
-  let len = originalArr.length;
-  if(len <= 1) {
-    return originalArr
-  }
-  let leftIndex = null;
-  let rightIndex = null;
-  let pivot = originalArr[len - 1];
-
-
-    for(let i = 0; i < len; i++) {
-      if(originalArr[i] > pivot) {
-        leftIndex = i;
-        break
+exports.quickSort = (array) => {
+  const run = (items, left, right) => {
+      const swap = (items, leftIndex, rightIndex) => {
+          let temp = items[leftIndex];
+          items[leftIndex] = items[rightIndex];
+          items[rightIndex] = temp;
+      };
+      const partition= (items, left, right) => {
+          let pivot   = items[Math.floor((right + left) / 2)],
+              i       = left,
+              j       = right;
+          while (i <= j) {
+              while (items[i] < pivot) {
+                  i++;
+              }
+              while (items[j] > pivot) {
+                  j--;
+              }
+              if (i <= j) {
+                  swap(items, i, j);
+                  i++;
+                  j--;
+              }
+          }
+          return i;
+      };
+      let index;
+      if (items.length > 1) {
+          index = partition(items, left, right);
+          if (left < index - 1) {
+              run(items, left, index - 1);
+          }
+          if (index < right) {
+              run(items, index, right);
+          }
       }
-    }
-    for(let j = (len - 2); j >= 0; j--) {
-      if(originalArr[j] < pivot) {
-        rightIndex = j;
-        break
-      }
-    }
-    if(leftIndex == null && rightIndex == null) {
-        return originalArr
-    }
-    if ((leftIndex < rightIndex) && leftIndex !== null) {
-      let placeholder = originalArr[leftIndex];
-      originalArr[leftIndex] = originalArr[rightIndex];
-      originalArr[rightIndex] = placeholder;
-      return this.quickSort(originalArr)
-    }
-    if (leftIndex > rightIndex || rightIndex === null) {
-      let placeholder = originalArr[leftIndex];
-      originalArr[leftIndex] = pivot;
-      originalArr[len - 1] = placeholder;
-      let leftArray = originalArr.slice(0,leftIndex);
-      let rightArray = originalArr.slice(leftIndex + 1, len + 1);
-      let leftResult = this.quickSort(leftArray);
-      let rightResult = this.quickSort(rightArray);
-      return leftResult.concat([pivot], rightResult)
-    }
-    if(leftIndex === null) {
-      let leftArray = originalArr.slice(0, len-1);
-      let leftResult = this.quickSort(leftArray);
-      return leftResult.concat([pivot])
-    }
-
-
-
-
-
-}
+      return items;
+  };
+  return run(array, 0, array.length - 1)
+};
